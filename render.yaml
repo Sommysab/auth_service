@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: billstation-auth
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd backend && gunicorn core.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: 0
+      - key: CORS_ALLOW_ALL_ORIGINS
+        value: 1
+    healthCheckPath: /api/docs/
+
+databases:
+  - name: billstation-db
+    plan: free
+    databaseName: billstation
+    user: billstation
+
+  - name: billstation-redis
+    plan: free
+    maxmemoryPolicy: allkeys-lru
