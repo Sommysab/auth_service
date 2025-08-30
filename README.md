@@ -34,7 +34,7 @@ docker-compose up -d
 ### 1. Clone the repository
 ```bash
 git clone <repository-url>
-cd auth_system
+cd <root_folder_name>
 ```
 
 ### 2. Create virtual environment
