@@ -17,6 +17,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . .
 
+ENV PYTHONPATH="${PYTHONPATH}:/app/backend"
+
 EXPOSE 8000
 
 COPY ./entrypoint.sh /entrypoint.sh

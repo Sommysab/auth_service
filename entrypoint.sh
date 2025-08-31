@@ -12,6 +12,9 @@
 # done
 # echo "Redis started"
 
+# Change to the backend directory where manage.py is located
+cd /app/backend
+
 # Run migrations
 python manage.py migrate --noinput
 
