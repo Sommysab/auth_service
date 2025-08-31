@@ -14,3 +14,4 @@ __pycache__
 staticfiles
 *DEPLOYMENT*
 *render*
+backend/users/admin*
