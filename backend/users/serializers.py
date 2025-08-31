@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from .services import UserService
 
 User = get_user_model()
 
@@ -14,7 +15,15 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop('password')
-        user = User.objects.create_user(password=password, **validated_data)
+        email = validated_data.get('email')
+        full_name = validated_data.get('full_name', '')
+        
+        # Use service layer instead of direct model access
+        user = UserService.create_user(
+            email=email,
+            password=password,
+            full_name=full_name
+        )
         return user
 
 

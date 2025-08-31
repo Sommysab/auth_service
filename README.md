@@ -2,12 +2,16 @@
 
 A secure Django-based authentication system for Bill Station fintech company with JWT tokens, Redis caching, and password reset functionality.
 
+## Live deployment
+- **Live API**: https://auth-service-3-xpkf.onrender.com/api/
+- **Swagger Documentation**: https://auth-service-3-xpkf.onrender.com/api/docs
+
 ## Quick Start
 
 ### Docker (Recommended)
 ```bash
 git clone <repository-url>
-cd auth_system
+cd <root_folder_name>
 docker-compose up -d
 ```
 - **API**: http://localhost:8000/api/
@@ -269,8 +273,8 @@ gunicorn backend.core.wsgi:application --bind 0.0.0.0:8000
 ### Platform Deployment
 
 #### Render
-- **Deployment URL**: https://your-app.onrender.com/api/
-- **Documentation**: https://your-app.onrender.com/api/docs/
+- **Deployment URL**: https://auth-service-3-xpkf.onrender.com/api/
+- **Documentation**: https://auth-service-3-xpkf.onrender.com/api/docs/
 
 
 ### Environment Setup for Deployment

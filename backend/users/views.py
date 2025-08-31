@@ -11,6 +11,7 @@ from django.contrib.auth import get_user_model
 from drf_spectacular.utils import extend_schema, OpenApiExample
 
 from .serializers import RegisterSerializer, UserSerializer, ForgotPasswordSerializer, ResetPasswordSerializer
+from .services import PasswordResetService
 
 User = get_user_model()
 
@@ -175,19 +176,15 @@ def forgot_password(request):
     email = request.data.get('email')
     if not email:
         return Response({'detail': 'Email required'}, status=400)
-    try:
-        user = User.objects.get(email=email)
-    except User.DoesNotExist:
-        return Response({'success': False})
     
-    token = get_random_string(32)
-    cache_key = f'pwdreset:{token}'
-    cache.set(cache_key, user.id, timeout=10 * 60) # 10 minutes
+    success, error_message, token = PasswordResetService.process_password_reset_request(email)
+    
+    if not success:
+        return Response({'success': False}, status=200)  # Return 200 for security (prevents email enumeration)
 
-    # In real app, I'd email token. For tests, we return it only if DEBUG
+    # In real app, I'd email token. But for tests, we return it
     response = {'success': True}
-    if True:
-        response['token'] = token
+    response['token'] = token
     return Response(response)
 
 
@@ -225,19 +222,11 @@ def reset_password(request):
     if not token or not new_password:
         return Response({'detail': 'token and password required'}, status=400)
     
-    cache_key = f'pwdreset:{token}'
-    user_id = cache.get(cache_key)
-    if not user_id:
-        return Response({'detail': 'Invalid or expired token'}, status=400)
+    success, error_message = PasswordResetService.process_password_reset(token, new_password)
     
-    try:
-        user = User.objects.get(id=user_id)
-    except User.DoesNotExist:
-        return Response({'detail': 'Invalid token'}, status=400)
+    if not success:
+        return Response({'detail': error_message}, status=400)
     
-    user.set_password(new_password)
-    user.save()
-    cache.delete(cache_key)
     return Response({'success': True})
 
 
