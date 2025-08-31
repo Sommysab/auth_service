@@ -1,5 +1,3 @@
-from django.core.cache import cache
-from django.utils.crypto import get_random_string
 from rest_framework import status, permissions
 from rest_framework.decorators import api_view, permission_classes, throttle_classes
 from rest_framework.response import Response
