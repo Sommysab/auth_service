@@ -6,17 +6,6 @@ A secure Django-based authentication system for Bill Station fintech company wit
 - **Live API**: https://auth-service-3-xpkf.onrender.com/api/
 - **Swagger Documentation**: https://auth-service-3-xpkf.onrender.com/api/docs
 
-## Quick Start
-
-### Docker (Recommended)
-```bash
-git clone <repository-url>
-cd <root_folder_name>
-docker-compose up -d
-```
-- **API**: http://localhost:8000/api/
-- **Swagger**: http://localhost:8000/api/docs/
-
 ## Features
 
 - **Email-based authentication** (no username required)
@@ -32,6 +21,17 @@ docker-compose up -d
 - Python
 - Redis (for caching and password reset tokens)
 - PostgreSQL (for production) or SQLite (for development)
+
+## Quick Start
+
+### Docker (Recommended)
+```bash
+git clone <repository-url>
+cd <root_folder_name>
+docker-compose up -d
+```
+- **API**: http://localhost:8000/api/
+- **Swagger**: http://localhost:8000/api/docs/
 
 ## Setup Instructions
 
